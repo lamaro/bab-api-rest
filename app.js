@@ -16,6 +16,8 @@ mongoose.connect('mongodb://lamaro:Mongotest1@ds217671.mlab.com:17671/buenosaire
 app.use(bodyParser.urlencoded({ extended: false }));
 app.use(bodyParser.json());
 app.use(methodOverride());
+var cors = require('cors')
+app.use(cors())
 //app.use(app.router);
 
 routes = require('./routes/cervecerias')(app);
