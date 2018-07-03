@@ -29,13 +29,14 @@ addCerveceria = function(req, res) {
 	console.log(req.body);
 
 	var cerveceria = new Cerveceria({
-		title:    req.body.title,
-		year: 	  req.body.year,
-		country:  req.body.country,
-		poster:   req.body.poster,
-		seasons:  req.body.seasons,
-		genre:    req.body.genre,
-		summary:  req.body.summary
+		id:    req.body.id,
+		nombreCer: 	  req.body.nombreCer,
+		ubicacionCer:  req.body.ubicacionCer,
+		urlImagenCer:   req.body.urlImagenCer,
+		promBebCer:  req.body.promBebCer,
+		promComCer:    req.body.promComCer,
+		lat:    req.body.lat,
+		lng:    req.body.lng
 	});
 
 	cerveceria.save(function(err, cerveceria) {
@@ -47,12 +48,14 @@ addCerveceria = function(req, res) {
 //PUT - Update a register already exists
 updateCerveceria = function(req, res) {
 	Cerveceria.findById(req.params.id, function(err, cerveceria) {
-		cerveceria.id   = req.body.petId;
+		cerveceria.id   = req.body.id;
 		cerveceria.nombreCer    = req.body.nombreCer;
 		cerveceria.ubicacionCer = req.body.ubicacionCer;
 		cerveceria.urlImagenCer  = req.body.urlImagenCer;
 		cerveceria.promBebCer = req.body.promBebCer;
 		cerveceria.promComCer   = req.body.promComCer;
+		cerveceria.lat   = req.body.lat;
+		cerveceria.lng   = req.body.lng;
 
 		cerveceria.save(function(err) {
 			if(err) return res.send(500, err.message);
