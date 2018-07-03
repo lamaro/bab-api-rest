@@ -51,7 +51,10 @@ module.exports = function(app) {
   		ubicacionCer:  req.body.ubicacionCer,
   		urlImagenCer:   req.body.urlImagenCer,
   		promBebCer:  req.body.promBebCer,
-  		promComCer:    req.body.promComCer
+  		promComCer:    req.body.promComCer,
+      lat:  req.body.lat,
+      lng:  req.body.lng,
+
   	});
 
   	cerveceria.save(function(err) {
@@ -75,6 +78,8 @@ module.exports = function(app) {
   		cerveceria.urlImagenCer = req.body.urlImagenCer;
   		cerveceria.promBebCer   = req.body.promBebCer;
   		cerveceria.promComCer = req.body.promComCer;
+      cerveceria.lat   = req.body.lat;
+  		cerveceria.lng   = req.body.lng;
   		cerveceria.save(function(err) {
   			if(!err) {
   				console.log('Updated');
