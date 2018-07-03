@@ -45,7 +45,7 @@ module.exports = function(app) {
   	console.log(req.body);
 
   	var cerveceria = new Cerveceria({
-  		id:    Number(req.body.id),
+  		id:    req.body.id,
       slug: req.body.slug,
   		nombreCer: 	  req.body.nombreCer,
   		ubicacionCer:  req.body.ubicacionCer,
@@ -71,7 +71,7 @@ module.exports = function(app) {
   //PUT - Update a register already exists
   updateCerveceria = function(req, res) {
   	Cerveceria.findById(req.params.id, function(err, cerveceria) {
-  		cerveceria.id   = Number(req.body.id);
+  		cerveceria.id   = req.body.id;
   		cerveceria.slug    = req.body.slug;
   		cerveceria.nombreCer = req.body.nombreCer;
   		cerveceria.ubicacionCer  = req.body.ubicacionCer;

@@ -2,13 +2,13 @@ var mongoose = require('mongoose'),
 	Schema = mongoose.Schema;
 
 var cerveceriaSchema = new Schema({
-  id:{ type: Number },
+  id:{ type: String },
   slug:{ type: String },
   nombreCer:{ type: String },
   ubicacionCer:{ type: String },
   urlImagenCer:  { type: String },
-  promBebCer:   { type: Number },
-  promComCer:  { type: Number },
+  promBebCer:   { type: String },
+  promComCer:  { type: String },
 	lat:  { type: String },
 	lng:  { type: String }
 
