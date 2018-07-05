@@ -17,9 +17,9 @@ module.exports = function(app) {
 
   //GET - Return a Cerveceria with specified ID
   findById = function(req, res) {
-  	Cerveceria.findById(req.params.id, function(err, cervecerias) {
+  	Cerveceria.findById(req.params._id, function(err, cervecerias) {
   		if(!err) {
-        console.log('GET /cerveceria/' + req.params.id);
+        console.log('GET /cerveceria/' + req.params._id);
   			res.send(cervecerias);
   		} else {
   			console.log('ERROR: ' + err);
@@ -107,6 +107,7 @@ module.exports = function(app) {
   //Link routes and functions
   app.get('/cervecerias', findAllCervecerias);
   app.get('/cerveceria/:slug', findBySlug);
+  app.get('/cerveceria/id/:_id', findById);
   app.post('/cerveceria', addCerveceria);
   app.put('/cerveceria/:id', updateCerveceria);
   app.delete('/cerveceria/:id', deleteCerveceria);
