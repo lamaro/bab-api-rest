@@ -157,6 +157,7 @@ module.exports = function(app) {
   			} else {
   				console.log('ERROR: ' + err);
   			}
+        res.send(cerveceria);
   		})
   	});
   }
