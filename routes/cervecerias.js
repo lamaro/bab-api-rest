@@ -91,6 +91,63 @@ module.exports = function(app) {
   	});
   }
 
+  //PUT - Agrega comentario en una cerveceria y calcula el promedio
+  updateComentarios = function(req, res) {
+    Cerveceria.findById(req.params.id, function(err, cerveceria) {
+
+      let Comentario = function(
+        nombreUsuario,
+        comentarioUsuario,
+        puntajeBebidaUsuario,
+        puntajeComidaUsuario
+      ){
+        this.nombreUsuario = nombreUsuario;
+        this.comentarioUsuario = comentarioUsuario;
+        this.puntajeBebidaUsuario = puntajeBebidaUsuario;
+        this.puntajeComidaUsuario = puntajeComidaUsuario;
+      };
+
+      let comentario = new Comentario(
+        req.body.nombreUsuario,
+        req.body.comentarioUsuario,
+        req.body.puntajeBebidaUsuario,
+        req.body.puntajeComidaUsuario
+      );
+      cerveceria.comentarios.push(comentario);
+
+      let promedioBebida = 0;
+      let promedioComida = 0;
+      let cantCervecerias = 0;
+      for (cantCervecerias; cantCervecerias < cerveceria.comentarios.length; cantCervecerias++) {
+        promedioBebida += Number(cerveceria.comentarios[cantCervecerias].puntajeBebidaUsuario);
+        promedioComida += Number(cerveceria.comentarios[cantCervecerias].puntajeComidaUsuario);
+      }
+      cerveceria.promBebCer  = promedioBebida / cantCervecerias;
+      cerveceria.promComCer  = promedioComida / cantCervecerias;
+
+      cerveceria.save(function(err) {
+        if(!err) {
+          console.log('Comentario Agregado!');
+        } else {
+          console.log('ERROR: ' + err);
+        }
+        res.send(cerveceria);
+      });
+
+    });
+  }
+
+  comentariosCerveceria = function(req, res) {
+  	Cerveceria.findById(req.params._id, function(err, comentarios) {
+  		if(!err) {
+        console.log('GET /cerveceria/' + req.params._id + '/comentarios');
+  			res.send(comentarios.comentarios);
+  		} else {
+  			console.log('ERROR: ' + err);
+  		}
+  	});
+  };
+
   //DELETE - Delete a Cerveceria with specified ID
   deleteCerveceria = function(req, res) {
   	Cerveceria.findById(req.params.id, function(err, cerveceria) {
@@ -105,11 +162,13 @@ module.exports = function(app) {
   }
 
   //Link routes and functions
-  app.get('/cervecerias', findAllCervecerias);
-  app.get('/cerveceria/:slug', findBySlug);
-  app.get('/cerveceria/id/:_id', findById);
-  app.post('/cerveceria', addCerveceria);
-  app.put('/cerveceria/:id', updateCerveceria);
-  app.delete('/cerveceria/:id', deleteCerveceria);
+  app.get('/cervecerias', findAllCervecerias); //Trae todas las servecerias
+  app.get('/cerveceria/:slug', findBySlug); //Trae una cerveceria por slug
+  app.get('/cerveceria/id/:_id', findById); //Trae una cerveceria por id
+  app.post('/cerveceria', addCerveceria); //Agrega una cerveceria
+  app.put('/cerveceria/:id', updateCerveceria); //Actualiza una cerveceria
+  app.get('/cerveceria/comentarios/:_id', comentariosCerveceria); //Trae todos los comentarios de una cerveceria
+  app.put('/cerveceria/comentario/add/:id', updateComentarios); //Agrega un comentario a una cerveceria
+  app.delete('/cerveceria/:id', deleteCerveceria); //Elimina una cerveceria
 
 }

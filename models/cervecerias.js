@@ -10,7 +10,8 @@ var cerveceriaSchema = new Schema({
   promBebCer:   { type: String },
   promComCer:  { type: String },
 	lat:  { type: String },
-	lng:  { type: String }
+	lng:  { type: String },
+	comentarios:  { type: Array },
 
 });
 
